@@ -1,7 +1,6 @@
 package kata1;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
 
 /**
  *
@@ -9,10 +8,9 @@ import java.util.GregorianCalendar;
  */
 public class Person {
     private final String name;
-    private final Calendar birthdate;
-    private final long MILLISECONDS_PER_YEAR = (long) (1000*60*60*24*365.25);
+    private final LocalDate birthdate;
 
-    public Person(String name, Calendar birthdate) {
+    public Person(String name, LocalDate birthdate) {
         this.name = name;
         this.birthdate = birthdate;
     }
@@ -21,20 +19,15 @@ public class Person {
         return name;
     }
 
-    public Calendar getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
-    }
-
-    public long getMILLISECONDS_PER_YEAR() {
-        return MILLISECONDS_PER_YEAR;
     }
     
     public int getAge(){
-        Calendar today = GregorianCalendar.getInstance();
-        return (int) (milliSecondsToYear(today.getTimeInMillis() - birthdate.getTimeInMillis()));
+        return toYear(LocalDate.now().toEpochDay() - birthdate.toEpochDay());
     }
     
-    private long milliSecondsToYear(long millis){
-        return millis / MILLISECONDS_PER_YEAR;
+    private int toYear(long day){
+        return (int) (day/365.25);
     }
 }
