@@ -1,6 +1,7 @@
 package kata1;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 /**
  *
@@ -24,10 +25,6 @@ public class Person {
     }
     
     public int getAge(){
-        return toYear(LocalDate.now().toEpochDay() - birthdate.toEpochDay());
-    }
-    
-    private int toYear(long day){
-        return (int) (day/365.25);
+        return Period.between(birthdate, LocalDate.now()).getYears();
     }
 }
